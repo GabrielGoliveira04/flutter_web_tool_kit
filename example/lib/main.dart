@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_tool_kit/widgets/atoms/navlinks/navlinks_widget.dart';
-import 'package:flutter_web_tool_kit/widgets/atoms/web_container/web_container_widget.dart';
-import 'package:flutter_web_tool_kit/widgets/organisms/web_navbar/web_navbar_widget.dart';
-import 'package:flutter_web_tool_kit/widgets/organisms/web_row/web_row_widget.dart';
-import 'package:flutter_web_tool_kit/widgets/template/web_structure/web_structure_widget.dart';
+import 'package:flutter_web_tool_kit/flutter_web_tool_kit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,12 +31,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final scrollController = ScrollController();
+  final _formKey = GlobalKey();
+  final _infoKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return WebStructureWidget(
         scrollController: scrollController,
-        navbar: const WebNavbarWidget.fixed(
+        navbar: const WebNavbarWidget.floating(
           navBarAlignment: NavbarAlignment.start,
+          // floatingColor: Colors.cyan,
           elevation: 0,
           navLinks: [
             NavlinksWidget(
@@ -58,9 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
             height: MediaQuery.of(context).size.height * 0.89,
             backgroundColor: const Color(0xFFA74C0B),
             padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.1,
-                right: MediaQuery.of(context).size.width * 0.1,
-                top: kToolbarHeight),
+              left: MediaQuery.of(context).size.width * 0.1,
+              right: MediaQuery.of(context).size.width * 0.1,
+            ),
             children: [
               WebRowWidget(
                 mainAxisSize: MainAxisSize.min,
@@ -125,6 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: const [],
           ),
           WebSectionWidget(
+            key: _infoKey,
             childrenMainAxisSize: MainAxisSize.min,
             childrenMainAxisAlignment: MainAxisAlignment.center,
             backgroundColor: const Color(0xffE09A25),
@@ -149,41 +149,44 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Flexible(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              'A Lenda Tainá-Kan',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff1C1300),
-                                  height: 1.20),
-                            ),
-                            SizedBox(height: 24),
-                            Text(
-                              '''Conta a tradição Karajá que Imaeró, uma bela indígena, desejava a estrela Tainá-Kan, conhecida como estrela d'alva. Sua vontade se realizou, mas a estrela se materializou na forma de um velho homem, já enrugado. Imaeró, decepcionada por encontrar um ancião em vez de um jovem, o rejeitou.
-                  No entanto, sua irmã, Denakê, se compadeceu de Tainá-Kan e decidiu que se casaria com ele. O velho homem prometeu cuidar de Denakê e alimentá-la, partindo para a mata. Denakê ouviu que deveria esperá-lo em casa, mas, com o passar das horas, decidiu ir ao seu encontro.
-                  Denakê, então, se deparou com uma surpresa ao encontrá-lo preparando um roçado na mata: Tainá-Kan havia assumido a forma de um guerreiro Karajá, jovem e forte. Ele explica que não apareceu desta forma para Imaeró porque ela não foi capaz de enxergar além do que seus olhos podiam ver. “Seu amor não era por mim, mas, sim, por meu brilho”, disse.
-                  Tainá-Kan foi muito feliz ao lado de Denakê e deu um grande presente ao povo Karajá: ensinou a eles o dom da agricultura.
-                  ''',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xff1C1300),
-                                  height: 1.45),
-                            ),
-                          ],
+                        child: DelayedFadeAnimationWidget(
+                          widgetKey: _infoKey,
+                          child: const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'A Lenda Tainá-Kan',
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xff1C1300),
+                                    height: 1.20),
+                              ),
+                              SizedBox(height: 24),
+                              Text(
+                                '''Conta a tradição Karajá que Imaeró, uma bela indígena, desejava a estrela Tainá-Kan, conhecida como estrela d'alva. Sua vontade se realizou, mas a estrela se materializou na forma de um velho homem, já enrugado. Imaeró, decepcionada por encontrar um ancião em vez de um jovem, o rejeitou.
+                                        No entanto, sua irmã, Denakê, se compadeceu de Tainá-Kan e decidiu que se casaria com ele. O velho homem prometeu cuidar de Denakê e alimentá-la, partindo para a mata. Denakê ouviu que deveria esperá-lo em casa, mas, com o passar das horas, decidiu ir ao seu encontro.
+                                        Denakê, então, se deparou com uma surpresa ao encontrá-lo preparando um roçado na mata: Tainá-Kan havia assumido a forma de um guerreiro Karajá, jovem e forte. Ele explica que não apareceu desta forma para Imaeró porque ela não foi capaz de enxergar além do que seus olhos podiam ver. “Seu amor não era por mim, mas, sim, por meu brilho”, disse.
+                                        Tainá-Kan foi muito feliz ao lado de Denakê e deu um grande presente ao povo Karajá: ensinou a eles o dom da agricultura.
+                                        ''',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff1C1300),
+                                    height: 1.45),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(
                         width: 60,
                         height: 60,
                       ),
-                      Flexible(
+                      const Flexible(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               'A homenagem',
                               style: TextStyle(
@@ -236,10 +239,10 @@ class _MyHomePageState extends State<MyHomePage> {
               WebRowWidget(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Flexible(
+                  const Flexible(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'Doe de forma segura',
                           style: TextStyle(
@@ -275,26 +278,32 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 60,
                   ),
                   Flexible(
-                    child: Card(
-                        color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(24),
-                          child: Column(
-                            children: [
-                              const Text(
-                                'Insira dados de identificação da doação',
-                                style: TextStyle(
-                                    fontSize: 24, fontWeight: FontWeight.w600),
-                              ),
-                              const SizedBox(height: 48),
-                              TextFormField(),
-                              const SizedBox(height: 10),
-                              TextFormField(),
-                              const SizedBox(height: 10),
-                              TextFormField(),
-                            ],
-                          ),
-                        )),
+                    child: DelayedSizeAnimation(
+                      widgetKey: _formKey,
+                      delay: 500,
+                      child: Card(
+                          key: _formKey,
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(24),
+                            child: Column(
+                              children: [
+                                const Text(
+                                  'Insira dados de identificação da doação',
+                                  style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                const SizedBox(height: 48),
+                                TextFormField(),
+                                const SizedBox(height: 10),
+                                TextFormField(),
+                                const SizedBox(height: 10),
+                                TextFormField(),
+                              ],
+                            ),
+                          )),
+                    ),
                   )
                 ],
               )
@@ -326,10 +335,10 @@ class _MyHomePageState extends State<MyHomePage> {
               WebRowWidget(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Flexible(
+                  const Flexible(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'A nossa conexão com \no Povo Karajá',
                           style: TextStyle(
@@ -455,10 +464,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible(
+                      const Flexible(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
                               'A Criação',
                               style: TextStyle(
@@ -550,10 +559,10 @@ As latas carregam em suas artes QR Codes para captação de doações diretas pa
               WebRowWidget(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Flexible(
+                  const Flexible(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'Doe de forma segura',
                           style: TextStyle(

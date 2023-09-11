@@ -13,7 +13,7 @@ class WebSectionWidget extends StatelessWidget {
   final MainAxisAlignment childrenMainAxisAlignment;
   final MainAxisSize childrenMainAxisSize;
   final CrossAxisAlignment childrenCrossAxisAlignment;
-  final EdgeInsets padding;
+  final EdgeInsetsGeometry padding;
   const WebSectionWidget(
       {this.backgroundColor,
       this.background,
@@ -70,7 +70,7 @@ class WebSectionWidget extends StatelessWidget {
                 mainAxisAlignment: childrenMainAxisAlignment,
                 crossAxisAlignment: childrenCrossAxisAlignment,
                 mainAxisSize: childrenMainAxisSize,
-                children: children,
+                children: [...children],
               ),
             ),
             Positioned.fill(
@@ -139,6 +139,41 @@ class WebSectionWidget extends StatelessWidget {
       //               topLeft: Radius.circular(360),
       //               bottomLeft: Radius.circular(360)),
       //         ))),
+    );
+  }
+
+  WebSectionWidget copyWith({
+    Color? backgroundColor,
+    Widget? background,
+    bool? backgroundOverlay,
+    Color? backgroundOverlayColor,
+    double? backgroundOverlayOpacity,
+    double? height,
+    double? width,
+    BoxBorder? border,
+    MainAxisAlignment? childrenMainAxisAlignment,
+    MainAxisSize? childrenMainAxisSize,
+    CrossAxisAlignment? childrenCrossAxisAlignment,
+    EdgeInsetsGeometry? padding,
+  }) {
+    return WebSectionWidget(
+      background: background ?? this.background,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      backgroundOverlay: backgroundOverlay ?? this.backgroundOverlay,
+      backgroundOverlayColor:
+          backgroundOverlayColor ?? this.backgroundOverlayColor,
+      backgroundOverlayOpacity:
+          backgroundOverlayOpacity ?? this.backgroundOverlayOpacity,
+      height: height ?? this.height,
+      width: width ?? this.width,
+      border: border ?? this.border,
+      childrenMainAxisAlignment:
+          childrenMainAxisAlignment ?? this.childrenMainAxisAlignment,
+      childrenMainAxisSize: childrenMainAxisSize ?? this.childrenMainAxisSize,
+      childrenCrossAxisAlignment:
+          childrenCrossAxisAlignment ?? this.childrenCrossAxisAlignment,
+      padding: padding ?? this.padding,
+      children: children,
     );
   }
 }

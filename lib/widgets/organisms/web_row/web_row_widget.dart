@@ -28,7 +28,6 @@ class WebRowWidget extends ResponsiveStatelessWidget {
         hint: 'This is WebRow',
         tooltip: 'WebRow',
         child: Column(
-          key: key,
           mainAxisAlignment: mainAxisAlignment,
           crossAxisAlignment: crossAxisAlignment,
           mainAxisSize: mainAxisSize,
@@ -51,7 +50,6 @@ class WebRowWidget extends ResponsiveStatelessWidget {
         hint: 'This is WebRow',
         tooltip: 'WebRow',
         child: Row(
-          key: key,
           mainAxisAlignment: mainAxisAlignment,
           mainAxisSize: mainAxisSize,
           crossAxisAlignment: crossAxisAlignment,

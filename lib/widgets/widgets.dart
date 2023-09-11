@@ -1,3 +1,4 @@
+export './animations/animations.dart';
 export './atoms/atoms.dart';
 export './behavior/render_behavior.dart';
 export './organisms/organisms.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_tool_kit/widgets/atoms/navlinks/navlinks_widget.dart';
+import 'package:flutter_web_tool_kit/widgets/template/web_structure/structure_scroll_controller.dart';
 
 //TODO: Criar navbar fixedAboveContent
 
@@ -55,15 +56,26 @@ class WebNavbarWidget extends StatefulWidget implements PreferredSizeWidget {
 
 class _WebNavbarWidgetState extends State<WebNavbarWidget> {
   late final ValueNotifier<Color> backgroundColor;
+  late final ScrollController? scrollController;
 
   @override
   void initState() {
     backgroundColor = ValueNotifier<Color>(
         widget.backgroundColor ?? Theme.of(context).colorScheme.primary);
 
-    widget.scrollController?.addListener(() {
-      if (widget.scrollController?.position.pixels !=
-          widget.scrollController?.initialScrollOffset) {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    scrollController =
+        StructureScrollController.of(context)?.scrollController ??
+            widget.scrollController;
+
+    scrollController?.addListener(() {
+      if (scrollController?.position.pixels !=
+              scrollController?.initialScrollOffset &&
+          widget.isFloating) {
         backgroundColor.value =
             widget.floatingColor ?? Theme.of(context).colorScheme.primary;
       } else {
@@ -71,7 +83,7 @@ class _WebNavbarWidgetState extends State<WebNavbarWidget> {
             widget.backgroundColor ?? Theme.of(context).colorScheme.primary;
       }
     });
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
@@ -106,7 +118,7 @@ class _WebNavbarWidgetState extends State<WebNavbarWidget> {
                     .toList(),
                 Visibility(
                     visible: widget.navBarAlignment!.align ==
-                        NavbarAlignment.centerNavLinks,
+                        NavbarAlignment.centerNavLinks.align,
                     child: const Offstage())
               ],
             )
